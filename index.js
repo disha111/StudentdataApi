@@ -8,7 +8,7 @@ const cors = require('cors');
 mongoose.connect("mongodb+srv://DJ:Disha123@cluster0.ogawy.mongodb.net/students?retryWrites=true&w=majority",{useNewUrlParser:true,useUnifiedTopology:true}).then(
     ()=>{
         const app = express();
-        app.use(cors);
+        app.use(cors());
         app.use(bodyParser.urlencoded({extended:true}));
         app.use(express.json());
         app.use("/api",route);

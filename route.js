@@ -94,10 +94,50 @@ router.get("/pvdata", auth, (req, res) => {
   });
 });
 
-router.get("/rkuStudent", async (req, res) => {
-  const rkuStudent = await Student.find();
-  res.send(rkuStudent);
+router.delete("/rkuStudent/:id", async (req, res) => {
+  await bookdata.deleteOne({ _id: req.params.id }, (err, d) => {
+    if (err)
+      return res.status(400).send({ err: "Student is not found!! No such data." });
+    if (d.deletedCount > 0) res.send("Student data is deleted successfully");
+    else res.send("Record doesn't exist or already deleted");
+  });
 });
+
+router.patch("/rkuStudent/:id",async (req,res)=>{
+  try {
+    const rkuStudent = await Student.findOne({ _id: req.params.id });
+    rkuStudent.name = req.body.name;
+    // console.log(req.body);
+    console.log("RKU ");
+    // await rkuStudent.save();
+    res.send(rkuStudent);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
+router.post("/rkuStudent", async (req, res) => {
+     try {
+       const rkuStudent = new Student({
+         name: req.body.name,
+         rno: req.body.eno,
+         branch: req.body.dept,
+         dob: req.body.dob,
+         gen: req.body.gen1
+       });
+   
+       console.log(rkuStudent);
+       await rkuStudent.save();
+       res.send(rkuStudent);
+     } catch (error) {
+       res.send(error);
+     }
+   });
+   
+   router.get("/rkuStudent", async (req, res) => {
+    const rkuStudent = await Student.find();
+    res.send(rkuStudent);
+  });
 
 router.post("/register", async (req, res) => {
   try {
@@ -110,7 +150,7 @@ router.post("/register", async (req, res) => {
     });
 
     await rkuStudent.save();
-    res.send(rkuStudent);
+    res.send(user);
   } catch (error) {
     res.send(error);
   }
