@@ -2,7 +2,6 @@ const express = require("express");
 const StudentData = require("./Model/studentdata");
 const Student = require("./Model/student");
 const bookdata = require("./Model/book");
-const video = require("./Model/video");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const Video = require("./Model/video");
@@ -150,7 +149,7 @@ router.post("/register", async (req, res) => {
     });
 
     await rkuStudent.save();
-    res.send(user);
+    res.send(rkuStudent);
   } catch (error) {
     res.send(error);
   }
