@@ -95,7 +95,7 @@ router.get("/pvdata", auth, (req, res) => {
 });
 
 router.delete("/rkuStudent/:id", async (req, res) => {
-  await bookdata.deleteOne({ _id: req.params.id }, (err, d) => {
+  await Student.deleteOne({ _id: req.params.id }, (err, d) => {
     if (err)
       return res.status(400).send({ err: "Student is not found!! No such data." });
     if (d.deletedCount > 0) res.send("Student data is deleted successfully");
