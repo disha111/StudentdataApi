@@ -15,4 +15,4 @@ const video_schema = mongoose.Schema({
     cat:String
 },{timestamps:true});
 
-module.exports = mongoose.model("video",video_schema);
+module.exports = mongoose.model("Video",video_schema);

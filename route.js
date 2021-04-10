@@ -117,25 +117,38 @@ router.patch("/rkuStudent/:id",async (req,res)=>{
 
 router.post("/rkuStudent", async (req, res) => {
      try {
+      const salt = await bcrypt.genSalt(10);
+      const hashpwd = await bcrypt.hash(req.body.pass, salt);
        const rkuStudent = new Student({
          name: req.body.name,
          rno: req.body.eno,
+         email:req.body.email,
+         pass:hashpwd,
          branch: req.body.dept,
          dob: req.body.dob,
          gen: req.body.gen1
        });
-   
        console.log(rkuStudent);
        await rkuStudent.save();
        res.send(rkuStudent);
      } catch (error) {
-       res.send(error);
+       res.send("error");
      }
    });
    
    router.get("/rkuStudent", async (req, res) => {
     const rkuStudent = await Student.find();
     res.send(rkuStudent);
+  });
+  router.post("/ulogin", async (req, res) => {
+    const user = await StudentData.findOne({ email: req.body.email });
+    if (!user) return res.send("Invalid User...");
+    const isvalid = await bcrypt.compare(req.body.pass, user.pass);
+    if (isvalid) {
+      const token = jwt.sign({ _id: user._id }, "privatekey");
+      res.header("auth-token", token);
+      res.send(token);
+    }
   });
 
 router.post("/register", async (req, res) => {
