@@ -2,9 +2,9 @@ const express = require("express");
 const StudentData = require("./Model/studentdata");
 const Student = require("./Model/student");
 const bookdata = require("./Model/book");
+const Video = require("./Model/video");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const Video = require("./Model/video");
 const auth = require("./verifyToken");
 
 const router = express.Router();
@@ -159,7 +159,7 @@ router.post("/rkuStudent", async (req, res) => {
 
   router.get('/user/:id',auth,async(req,res)=>{
     const user = await StudentData.findOne({_id:req.params.id});
-  })
+  });
 
 router.post("/register", async (req, res) => {
   try {
