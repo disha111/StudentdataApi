@@ -12,7 +12,7 @@ const router = express.Router();
 router.get("/studentData", async (req, res) => {
   const student = await StudentData.find();
   res.send(student);
-});
+}); 
 
 router.get("/bookdata", async (req, res) => {
   const book = await bookdata.find();
@@ -141,7 +141,7 @@ router.post("/rkuStudent", async (req, res) => {
      }
    });
    
-   router.get("/rkuStudent", async (req, res) => {
+   router.get("/rkuStudent",auth, async (req, res) => {
     const rkuStudent = await Student.find();
     res.send(rkuStudent);
   });
