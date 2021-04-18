@@ -106,9 +106,14 @@ router.patch("/rkuStudent/:id",async (req,res)=>{
   try {
     const rkuStudent = await Student.findOne({ _id: req.params.id });
     rkuStudent.name = req.body.name;
+    rkuStudent.rno = req.body.rno;
+    rkuStudent.email = req.body.email;
+    rkuStudent.dob = req.body.dob;
+    rkuStudent.branch = req.body.branch;
+    rkuStudent.gen = req.body.gen;
     // console.log(req.body);
-    console.log("RKU ");
-    // await rkuStudent.save();
+    console.log("RKU "+ req.body.branch);
+    await rkuStudent.save();
     res.send(rkuStudent);
   } catch (error) {
     res.send(error);
@@ -140,16 +145,21 @@ router.post("/rkuStudent", async (req, res) => {
     const rkuStudent = await Student.find();
     res.send(rkuStudent);
   });
+
   router.post("/ulogin", async (req, res) => {
-    const user = await StudentData.findOne({ email: req.body.email });
-    if (!user) return res.send("Invalid User...");
+    const user = await Student.findOne({ email: req.body.email });
+    if (!user) return res.send("Invalid User..."+req.body.email+" Pass: "+req.body.pass);
     const isvalid = await bcrypt.compare(req.body.pass, user.pass);
     if (isvalid) {
       const token = jwt.sign({ _id: user._id }, "privatekey");
-      res.header("auth-token", token);
-      res.send(token);
+      // res.header("auth-token", {token});
+      res.send({token});
     }
   });
+
+  router.get('/user/:id',auth,async(req,res)=>{
+    const user = await StudentData.findOne({_id:req.params.id});
+  })
 
 router.post("/register", async (req, res) => {
   try {
