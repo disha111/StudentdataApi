@@ -141,7 +141,7 @@ router.post("/rkuStudent", async (req, res) => {
      }
    });
    
-   router.get("/rkuStudent",auth, async (req, res) => {
+   router.get("/rkuStudent", auth, async (req, res) => {
     const rkuStudent = await Student.find();
     res.send(rkuStudent);
   });
@@ -152,7 +152,7 @@ router.post("/rkuStudent", async (req, res) => {
     const isvalid = await bcrypt.compare(req.body.pass, user.pass);
     if (isvalid) {
       const token = jwt.sign({ _id: user._id }, "privatekey");
-      // res.header("auth-token", {token});
+      res.header("Authorization", token);
       res.send({token});
     }
   });
