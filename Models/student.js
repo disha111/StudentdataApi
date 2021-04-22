@@ -1,16 +1,13 @@
 const mongoose = require('mongoose');
 
-const studentschema = mongoose.Schema({
-    fullname: String,
-    uid: String,
-    username: String,
-    password: String,
-    department: String,
-    cellno: String,
-    dob: String,
-    gender: String,
-    token: String
+const studschema = mongoose.Schema({
+    name:String,
+    rno:String,
+    email:String,
+    pass:String,
+    gen:String,
+    dob:String,
+    branch:String
 });
 
-//Model name here must be singular & collection in db plural
-module.exports = mongoose.model("studentdetail", studentschema); //studentdetail is model without 's' at prefix as in collection.
+module.exports = mongoose.model("studentdata", studschema);
