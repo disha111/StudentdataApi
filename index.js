@@ -5,7 +5,7 @@ const route = require('./route');
 const cors = require('cors');
 
 //connect to mongodb
-mongoose.connect("mongodb+srv://RJ:Rj-cluster0@cluster0.dybb0.mongodb.net/students?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true }).then(
+mongoose.connect("mongodb+srv://DJ:Disha123@cluster0.dybb0.mongodb.net/students?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true }).then(
     () => {
         const app = express();
         app.use(cors());
