@@ -29,7 +29,7 @@ router.post("/register", async (req, res) => {
       pass:hashpwd,
       branch: req.body.branch,
       dob: req.body.dob,
-      gen: req.body.gen1
+      gen: req.body.gen
     });
 
     await rkuStudent.save();
@@ -71,7 +71,7 @@ router.patch("/rkuStudent/:id",async (req,res)=>{
     rkuStudent.email = req.body.email;
     rkuStudent.dob = req.body.dob;
     rkuStudent.branch = req.body.branch;
-    rkuStudent.gen = req.body.gen1;
+    rkuStudent.gen = req.body.gen;
     // console.log(req.body);
     console.log("RKU "+ req.body.branch);
     await rkuStudent.save();
