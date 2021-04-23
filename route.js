@@ -11,6 +11,11 @@ router.get("/bookdata", async (req, res) => {
     res.send(book);
 });
 
+router.get("/studlist", async (req, res) => {
+    const studl = await Student.find();
+    res.send(studl);
+});
+
 //-------------------JSONWebToken Api Routes------------------
 //user registration using authentication(jwt)
 router.post("/register", async (req, res) => {
@@ -40,7 +45,7 @@ router.post("/ulogin", async (req, res) => {
   const isvalid = await bcrypt.compare(req.body.pass, user.pass);
   if (isvalid) {
     const token = jwt.sign({ _id: user._id }, "privatekey");
-    res.header("Authorization", token);
+    //res.header("Authorization", token);
     res.send({token});
   }
 });
